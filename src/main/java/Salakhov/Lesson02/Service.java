@@ -6,7 +6,7 @@ public class Service implements InterfaceBD<HumanDTO> {
 //    Convertor<HumanDTO> humanToDTO = new Convertor<>();
 //    Convertor<Human> dtoToHuman = new Convertor<>();
     Convertor convertor = new Convertor();
-    DataBase<Human> humanDB = new DataBase<>();
+    DataBase humanDB = new DataBase();
 
     //получение одной сущности
     public HumanDTO getOne(int num){
@@ -17,12 +17,13 @@ public class Service implements InterfaceBD<HumanDTO> {
 
     //получение всех сущностей
     public HumanDTO[] getAll(){
-        DataBase<HumanDTO> dtoHumanDB = new DataBase<>();
+//        DataBase<HumanDTO> dtoHumanDB = new DataBase<>();
+        HumanDTO[] dtoHumanDB = new HumanDTO[10];
         for (int i=0; i<10; i++) {
 //            dtoHumanDB[i] = humanToDTO.convert(humanDB.getOne(i));
-            dtoHumanDB.setOne(convertor.convertToDTO(humanDB.getOne(i)), i);
+            dtoHumanDB[i] = convertor.convertToDTO(humanDB.getOne(i));
         }
-        return dtoHumanDB.getAll();
+        return dtoHumanDB;
     }
 
     //сохранение одной сущности
