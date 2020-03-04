@@ -10,7 +10,7 @@ public interface InterfaceBD<T> {
     public T[] getAll();
 
     //сохранение одной сущности
-    public void setOne(T t);
+    public void setOne(T t, int num);
 
     //сохранение списка сущностей
     public void setAll(T[] t);

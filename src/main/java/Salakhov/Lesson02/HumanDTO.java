@@ -18,6 +18,7 @@ public class HumanDTO {
             this.street = new String(street);
             this.house = new String(house);
         }
+/*
         public String getCity() {
             return this.city;
         }
@@ -36,7 +37,7 @@ public class HumanDTO {
         public void setHouse(String newValue) {
             this.house = new String(newValue);
         }
-
+*/
     }
 
     public HumanDTO(int id, String name, String city, String street, String house, Date birthDate) {
@@ -69,9 +70,28 @@ public class HumanDTO {
     public void setBirthDate(int year, int month, int day) {
         this.birthDate = new Date(year, month, day);
     }
-    public void setAddress(Address newValue) {
-        this.address.city = new String(newValue.getCity());
-        this.address.street = new String(newValue.getStreet());
-        this.address.house = new String(newValue.getHouse());
+    public void setAddress(String city, String street, String house) {
+        this.address.city = new String(city);
+        this.address.street = new String(street);
+        this.address.house = new String(house);
     }
+    public String getCity() {
+        return this.address.city;
+    }
+    public String getStreet() {
+        return this.address.street;
+    }
+    public String getHouse() {
+        return this.address.house;
+    }
+    public void setCity(String newValue) {
+        this.address.city = new String(newValue);
+    }
+    public void setStreet(String newValue) {
+        this.address.street = new String(newValue);
+    }
+    public void setHouse(String newValue) {
+        this.address.house = new String(newValue);
+    }
+
 }
