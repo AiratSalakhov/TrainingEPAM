@@ -46,6 +46,9 @@ public class Human {
         this.birthDate = birthDate;
     }
 
+    public Human() {
+    }
+
     public int getid() {
         return this.id;
     }

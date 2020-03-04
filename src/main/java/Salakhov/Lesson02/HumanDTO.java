@@ -45,6 +45,8 @@ public class HumanDTO {
         address = new Address(city, street, house);
         this.birthDate = birthDate;
     }
+    public HumanDTO() {
+    }
 
     public int getid() {
         return this.id;
