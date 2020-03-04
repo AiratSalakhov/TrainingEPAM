@@ -14,10 +14,11 @@ public class Human {
         private String house;
 
         public Address(String city, String street, String house) {
-            this.city = new String(city);
-            this.street = new String(street);
-            this.house = new String(house);
+            this.city = city;
+            this.street = street;
+            this.house = house;
         }
+        public Address() {}
     }
 
     public Human(int id, String name, String city, String street, String house, Date birthDate) {
@@ -27,8 +28,7 @@ public class Human {
         this.birthDate = birthDate;
     }
 
-    public Human() {
-    }
+    public Human() {address = new Address();}
 
     public int getid() {
         return this.id;
