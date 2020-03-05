@@ -28,6 +28,4 @@ public class DataBase implements InterfaceBD<Human> {
         System.out.println("сохраняем все сущности в массиве");
         database = t;
     }
-
-
 }
