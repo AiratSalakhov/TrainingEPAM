@@ -29,16 +29,7 @@ public class HumanDTO {
         this.birthDate = birthDate;
     }
 
-    public HumanDTO() {
-        this.id = (int)(Math.random()*10000);
-        String[] names = {"Вася", "Петя", "Саша", "Гена", "Дима"};
-        String[] cities = {"Тольятти", "Самара", "Москва", "Воронеж", "Казань"};
-        String[] streets = {"Юбилейная", "Ленина", "Революционная", "Южная", "Северная"};
-        String[] houses = {"31Е", "20", "38", "1", "135/6"};
-        this.name = names[(int)(Math.random()*4)];
-        address = new Address(cities[(int)(Math.random()*4)], streets[(int)(Math.random()*4)], houses[(int)(Math.random()*4)]);
-        this.birthDate = new Date(110-(int)(Math.random()*60), 1+(int)(Math.random()*11), 1+(int)(Math.random()*27));
-    }
+    public HumanDTO() {address = new Address();}
 
     public int getid() {
         return this.id;
