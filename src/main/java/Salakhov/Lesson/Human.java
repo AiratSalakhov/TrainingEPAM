@@ -8,7 +8,7 @@ public class Human {
     public Human(String fio, int age, String city, String street, String house, String room) {
         this.fio = fio;
         this.age = age;
-        this.address = new Address(String city, String street, String house, String room);
+        this.address = new Address(city, street, house, room);
     }
 
 //    public Human() {address = new Address();}
