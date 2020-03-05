@@ -1,4 +1,4 @@
-package Lesson02;
+package main.java.Salakhov.Lesson02;
 
 import java.lang.reflect.Array;
 

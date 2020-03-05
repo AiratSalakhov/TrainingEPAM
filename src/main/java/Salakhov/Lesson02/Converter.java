@@ -1,6 +1,6 @@
-package Lesson02;
+package main.java.Salakhov.Lesson02;
 
-public class Convertor {
+public class Converter {
     public HumanDTO convertToDTO(Human human){
         System.out.println("Конвертируем в DTO...");
         HumanDTO v = new HumanDTO();

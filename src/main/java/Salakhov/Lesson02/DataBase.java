@@ -1,4 +1,4 @@
-package Lesson02;
+package main.java.Salakhov.Lesson02;
 
 public class DataBase implements InterfaceBD<Human> {
 
