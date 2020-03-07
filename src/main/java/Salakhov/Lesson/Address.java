@@ -12,7 +12,6 @@ public class Address {
         this.house = house;
         this.room = room;
     }
-//    public Address() {}
     public String getCity() {
         return this.city;
     }
@@ -24,6 +23,10 @@ public class Address {
     }
     public String getRoom() {
         return this.room;
+    }
+    @Override
+    public String toString(){
+        return "Address ("+this.city+", "+this.street+", "+this.house+", "+this.room+")";
     }
 
 }

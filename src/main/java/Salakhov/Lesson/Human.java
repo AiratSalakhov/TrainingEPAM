@@ -11,9 +11,7 @@ public class Human {
         this.address = new Address(city, street, house, room);
     }
 
-//    public Human() {address = new Address();}
-
-    public String getfio() {
+    public String getFio() {
         return this.fio;
     }
     public int getAge() {
@@ -23,23 +21,6 @@ public class Human {
         return this.address;
     }
 
-/*
-    public void setid(int id) {
-        this.id = id;
-    }
-    public void setname(String newValue) {
-        this.name = new String(newValue);
-    }
-    public void setBirthDate(int year, int month, int day) {
-        this.birthDate = new Date(year, month, day);
-    }
-    public void setAddress(String city, String street, String house) {
-        this.address.city = new String(city);
-        this.address.street = new String(street);
-        this.address.house = new String(house);
-    }
-
- */
     public String getCity() {
         return this.address.getCity();
     }
@@ -52,17 +33,8 @@ public class Human {
     public String getRoom() {
         return this.address.getRoom();
     }
-/*
-    public void setCity(String newValue) {
-        this.address.city = new String(newValue);
+    @Override
+    public String toString(){
+        return "Class Human ("+this.fio+", "+this.age+", "+this.address+")";
     }
-    public void setStreet(String newValue) {
-        this.address.street = new String(newValue);
-    }
-    public void setHouse(String newValue) {
-        this.address.house = new String(newValue);
-    }
-
-
- */
 }
