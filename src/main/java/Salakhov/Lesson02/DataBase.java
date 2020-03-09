@@ -1,6 +1,9 @@
 package main.java.Salakhov.Lesson02;
 
+import org.slf4j.LoggerFactory;
+
 public class DataBase implements InterfaceBD<Human> {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(DataBase.class.getName());
 
     // делаем без проверок на заполненность массива
     private Human[] database = new Human[10];
@@ -8,6 +11,7 @@ public class DataBase implements InterfaceBD<Human> {
     //получение одной сущности
     public Human getOne(int num){
         System.out.println("получаем сущность номер " + num + " " + database[num]);
+        log.info("получаем сущность номер " + num + " " + database[num] + " ===> log (FILE)");
         return database[num];
     }
 
@@ -21,6 +25,7 @@ public class DataBase implements InterfaceBD<Human> {
     public void setOne(Human t, int num){
         database[num] = t;
         System.out.println("сохраняем сущность номер " + num + " " + t);
+        log.info("сохраняем сущность номер " + num + " " + t + " ===> log (FILE)");
     }
 
     //сохранение списка сущностей

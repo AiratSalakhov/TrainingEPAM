@@ -1,6 +1,10 @@
 package main.java.Salakhov.Lesson02;
 
+import org.slf4j.LoggerFactory;
+
 public class Service implements InterfaceBD<HumanDTO> {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Service.class.getName());
+
     Converter converter = new Converter();
     DataBase humanDB = new DataBase();
 
@@ -9,6 +13,7 @@ public class Service implements InterfaceBD<HumanDTO> {
         // возвращаем в формате DTO
         HumanDTO hdto = converter.convertToDTO(humanDB.getOne(num));
         System.out.println("из сервиса получаем DTO номер " + num + " " + hdto);
+        log.info("из сервиса получаем DTO номер " + num + " " + hdto + " ===> log (CON)");
         return hdto;
     }
 
@@ -27,6 +32,7 @@ public class Service implements InterfaceBD<HumanDTO> {
 //        System.out.println("convertor.convertToHuman(t), num ");
 //        System.out.println(" " + convertor.convertToHuman(t) + ", " + num);
         System.out.println("через сервис сохраняем DTO номер " + num + " " + t);
+        log.info("через сервис сохраняем DTO номер " + num + " " + t + " ===> log (CON)");
         humanDB.setOne(converter.convertToHuman(t), num);
     }
 
