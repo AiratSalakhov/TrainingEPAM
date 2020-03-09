@@ -1,5 +1,9 @@
 package main.java.Salakhov.Lesson;
 
+import Salakhov.Lesson.Comparators.ComparatorHuman;
+import main.java.Salakhov.Lesson.Comparators.ComparatorHashMap;
+import main.java.Salakhov.Lesson.Comparators.ComparatorString;
+
 import java.util.*;
 
 public class Main {
@@ -39,32 +43,33 @@ public class Main {
         }
         System.out.println("===========================");
         System.out.println("4. Отсортировать людей по ФИО");
-        Comparator<Human> humanComparatorByName = new Comparator<Human>() {
-            @Override
-            public int compare(Human o1, Human o2) {return o1.getFio().compareTo(o2.getFio());}
-        };
-        arrayList.sort(humanComparatorByName);
+        ComparatorHuman comparatorHuman = new ComparatorHuman();
+//        Comparator<Human> humanComparatorByName = new Comparator<Human>() {
+//            @Override
+//            public int compare(Human o1, Human o2) {return o1.getFio().compareTo(o2.getFio());}
+//        };
+        arrayList.sort(comparatorHuman.humanComparatorByFio);
         System.out.println(arrayList);
         System.out.println("===========================");
         System.out.println("5. Отсортировать людей по возрасту");
-        Comparator<Human> humanComparatorByAge = new Comparator<Human>() {
-            @Override
-            public int compare(Human o1, Human o2) {
-                if (o1.getAge() == o2.getAge()) return 0;
-                return o1.getAge() > o2.getAge() ? 1 : -1;
-            }
-        };
-        arrayList.sort(humanComparatorByAge);
+//        Comparator<Human> humanComparatorByAge = new Comparator<Human>() {
+//            @Override
+//            public int compare(Human o1, Human o2) {
+//                if (o1.getAge() == o2.getAge()) return 0;
+//                return o1.getAge() > o2.getAge() ? 1 : -1;
+//            }
+//        };
+        arrayList.sort(comparatorHuman.humanComparatorByAge);
         System.out.println(arrayList);
         System.out.println("===========================");
         System.out.println("6. Отсортировать людей по адресу (лексикографическая сортировка полного адреса)");
-        Comparator<Human> humanComparatorByAddress = new Comparator<Human>() {
-            @Override
-            public int compare(Human o1, Human o2) {
-                return o1.getAddress().toString().compareTo(o2.getAddress().toString());
-            }
-        };
-        arrayList.sort(humanComparatorByAddress);
+//        Comparator<Human> humanComparatorByAddress = new Comparator<Human>() {
+//            @Override
+//            public int compare(Human o1, Human o2) {
+//                return o1.getAddress().toString().compareTo(o2.getAddress().toString());
+//            }
+//        };
+        arrayList.sort(comparatorHuman.humanComparatorByAddress);
         System.out.println(arrayList);
         System.out.println("===========================");
         System.out.println("7. Создать класс User добавить в него поля ФИО, и роль которое является перечислением и содержит в себе ADMIN, USER, MODERATOR");
@@ -86,24 +91,30 @@ public class Main {
         System.out.println(hashMap);
 
         ArrayList<String> arrayListOfKeys = new ArrayList<String>(hashMap.keySet());
-        arrayListOfKeys.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        ComparatorString comparatorString = new ComparatorString();
+        arrayListOfKeys.sort(comparatorString.stringComparator
+//                new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return o1.compareTo(o2);
+//            }
+//        }
+        );
         for (String key : arrayListOfKeys) {
             System.out.println("key=" + key + ", value=" + hashMap.get(key));
         }
         System.out.println("===========================");
         System.out.println("10. Написать программу сортирующую HashMap по значнию. (Создание и генерация данными какими захотите)");
         ArrayList<HashMap.Entry> arrayList1 = new ArrayList<>(hashMap.entrySet());
-        arrayList1.sort(new Comparator<HashMap.Entry>() {
-            @Override
-            public int compare(Map.Entry o1, Map.Entry o2) {
-                return o1.getValue().toString().compareTo(o2.getValue().toString());
-            }
-        });
+        ComparatorHashMap comparatorHashMap = new ComparatorHashMap();
+        arrayList1.sort(comparatorHashMap.hashMapComparator
+//                new Comparator<HashMap.Entry>() {
+//            @Override
+//            public int compare(Map.Entry o1, Map.Entry o2) {
+//              return o1.getValue().toString().compareTo(o2.getValue().toString());
+//            }
+//        }
+        );
         for (HashMap.Entry arrayListElement : arrayList1) {
             System.out.println("key=" + arrayListElement.getKey() + ", value=" + arrayListElement.getValue());
         }
