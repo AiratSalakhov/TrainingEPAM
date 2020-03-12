@@ -25,6 +25,10 @@ public class Filter {
             System.out.println("Неизвестная команда " + commandToDo);
             return false;
         }
+        if (lineNum < 0) {
+            System.out.println("Номер строки должен быть положительным!");
+            return false;
+        }
 
         //System.out.println("Запуск обработчика " + commandToDo + "...");
         return hashMapHandlers.get(commandToDo).execute(lineNum, fileName, stringToAdd);

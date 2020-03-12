@@ -19,9 +19,15 @@ public class HandlerAdd implements main.java.Salakhov.Lesson.Handlers.Handlers {
 
         stringToAdd = stringToAdd.substring(1, stringToAdd.length()-1);
 
-        if (!fileReader.openReader(fileName)) {return false;}
-        if (!fileReader.read()) {return false;}
-        if (!fileReader.closeReader()) {return false;}
+        fileReader.clearBuffer();
+        // если файла нет для чтения, то потом его создадим, т.е. ошибки нет
+        if (fileReader.openReaderSilent(fileName)) {
+            if (!fileReader.read()) {
+                return false;
+            }
+            if (!fileReader.closeReader()) {return false;}
+        }
+
         if (lineNum == 0 || (lineNum - fileReader.getBuffer().size()) == 1) {
             // добавим строку в конец
             fileReader.getBuffer().add(stringToAdd);

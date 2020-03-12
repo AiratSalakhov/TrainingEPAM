@@ -27,6 +27,21 @@ public class FileReader {
         return true;
     }
 
+    public boolean openReaderSilent(String fileName) {
+        try {
+            reader = new BufferedReader(new java.io.FileReader(fileName)) ;
+        } catch (IOException e) {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
     public boolean openWriter(String fileName) {
         try {
             writer = new BufferedWriter(new java.io.FileWriter(fileName)) ;

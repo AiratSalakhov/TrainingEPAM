@@ -17,6 +17,7 @@ public class HandlerDelete implements main.java.Salakhov.Lesson.Handlers.Handler
             return false;
         }
 
+        fileReader.clearBuffer();
         if (!fileReader.openReader(fileName)) {return false;}
         if (!fileReader.read()) {return false;}
         if (!fileReader.closeReader()) {return false;}

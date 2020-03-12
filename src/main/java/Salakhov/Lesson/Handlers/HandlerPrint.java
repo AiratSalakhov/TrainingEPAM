@@ -17,6 +17,7 @@ public class HandlerPrint implements main.java.Salakhov.Lesson.Handlers.Handlers
             return false;
         }
 
+        fileReader.clearBuffer();
         if (!fileReader.openReader(fileName)) {return false;}
         if (!fileReader.read()) {return false;}
         if (!fileReader.closeReader()) {return false;}
