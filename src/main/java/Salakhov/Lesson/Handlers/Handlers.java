@@ -1,5 +1,5 @@
-package main.java.Salakhov.Lesson.Handlers;
+package Salakhov.Lesson.Handlers;
 
 public interface Handlers {
-    public boolean execute (Integer lineNum, String fileName, String stringToAdd);
+    boolean execute (Integer lineNum, String fileName, String stringToAdd);
 }

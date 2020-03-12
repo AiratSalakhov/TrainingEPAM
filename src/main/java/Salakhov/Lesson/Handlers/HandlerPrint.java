@@ -1,8 +1,8 @@
-package main.java.Salakhov.Lesson.Handlers;
+package Salakhov.Lesson.Handlers;
 
-import main.java.Salakhov.Lesson.FileReader;
+import Salakhov.Lesson.FileReader;
 
-public class HandlerPrint implements main.java.Salakhov.Lesson.Handlers.Handlers {
+public class HandlerPrint implements Salakhov.Lesson.Handlers.Handlers {
 
     FileReader fileReader = new FileReader();
 

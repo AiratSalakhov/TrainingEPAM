@@ -1,8 +1,8 @@
-package main.java.Salakhov.Lesson.Handlers;
+package Salakhov.Lesson.Handlers;
 
-import main.java.Salakhov.Lesson.FileReader;
+import Salakhov.Lesson.FileReader;
 
-public class HandlerDelete implements main.java.Salakhov.Lesson.Handlers.Handlers {
+public class HandlerDelete implements Salakhov.Lesson.Handlers.Handlers {
 
     FileReader fileReader = new FileReader();
 
@@ -33,8 +33,7 @@ public class HandlerDelete implements main.java.Salakhov.Lesson.Handlers.Handler
         }
         if (!fileReader.openWriter(fileName)) {return false;}
         if (!fileReader.write()) {return false;}
-        if (!fileReader.closeWriter()) {return false;}
-        return true;
+        return fileReader.closeWriter();
     }
 
 }

@@ -1,9 +1,13 @@
-package main.java.Salakhov.Lesson;
+package Salakhov.Lesson;
+
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.LinkedList;
 
 public class FileReader {
+
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(FileReader.class.getName());
 
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -15,11 +19,13 @@ public class FileReader {
         } catch (IOException e) {
             System.out.println("Ошибка открытия файла для чтения!");
             System.out.println(e.getMessage());
+            log.info(e.getMessage());
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
+                    log.info(e1.getMessage());
                 }
             }
             return false;
@@ -31,10 +37,12 @@ public class FileReader {
         try {
             reader = new BufferedReader(new java.io.FileReader(fileName)) ;
         } catch (IOException e) {
+            log.info(e.getMessage());
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e1) {
+                    log.info(e1.getMessage());
                 }
             }
             return false;
@@ -48,11 +56,13 @@ public class FileReader {
         } catch (IOException e) {
             System.out.println("Ошибка открытия файла для записи!");
             System.out.println(e.getMessage());
+            log.info(e.getMessage());
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
+                    log.info(e1.getMessage());
                 }
             }
             return false;
@@ -66,6 +76,7 @@ public class FileReader {
         } catch (IOException e) {
             System.out.println("Ошибка закрытия файла после чтения!");
             System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return false;
         }
         return true;
@@ -78,6 +89,7 @@ public class FileReader {
         } catch (IOException e) {
             System.out.println("Ошибка закрытия файла после записи!");
             System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return false;
         }
         return true;
@@ -94,11 +106,13 @@ public class FileReader {
         } catch (IOException e) {
             System.out.println("Ошибка чтения файла!");
             System.out.println(e.getMessage());
+            log.info(e.getMessage());
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
+                    log.info(e1.getMessage());
                 }
             }
             return false;
@@ -116,11 +130,13 @@ public class FileReader {
         } catch (IOException e) {
             System.out.println("Ошибка записи файла!");
             System.out.println(e.getMessage());
+            log.info(e.getMessage());
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
+                    log.info(e1.getMessage());
                 }
             }
             return false;

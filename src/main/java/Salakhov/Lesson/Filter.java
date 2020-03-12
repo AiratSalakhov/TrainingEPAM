@@ -1,18 +1,18 @@
-package main.java.Salakhov.Lesson;
+package Salakhov.Lesson;
 
-import main.java.Salakhov.Lesson.Handlers.HandlerAdd;
-import main.java.Salakhov.Lesson.Handlers.HandlerDelete;
-import main.java.Salakhov.Lesson.Handlers.HandlerPrint;
+import Salakhov.Lesson.Handlers.HandlerAdd;
+import Salakhov.Lesson.Handlers.HandlerDelete;
+import Salakhov.Lesson.Handlers.HandlerPrint;
 
 import java.util.HashMap;
 
 public class Filter {
 
-    HashMap<String, main.java.Salakhov.Lesson.Handlers.Handlers> hashMapHandlers = new HashMap<>();
+    HashMap<String, Salakhov.Lesson.Handlers.Handlers> hashMapHandlers = new HashMap<>();
 
-    main.java.Salakhov.Lesson.Handlers.HandlerAdd handlerAdd = new HandlerAdd();
-    main.java.Salakhov.Lesson.Handlers.HandlerDelete handlerDelete = new HandlerDelete();
-    main.java.Salakhov.Lesson.Handlers.HandlerPrint handlerPrint = new HandlerPrint();
+    Salakhov.Lesson.Handlers.HandlerAdd handlerAdd = new HandlerAdd();
+    Salakhov.Lesson.Handlers.HandlerDelete handlerDelete = new HandlerDelete();
+    Salakhov.Lesson.Handlers.HandlerPrint handlerPrint = new HandlerPrint();
 
     public Filter() {
         hashMapHandlers.put("add", handlerAdd);

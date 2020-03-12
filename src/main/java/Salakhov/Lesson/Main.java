@@ -1,15 +1,15 @@
-package main.java.Salakhov.Lesson;
+package Salakhov.Lesson;
 
 import java.util.Scanner;
-import main.java.Salakhov.Lesson.Filter;
+import Salakhov.Lesson.Filter;
 
 public class Main {
 
     public static void main(String[] args) {
 
         Scanner consoleScanner = new Scanner(System.in);
-        String commandToDo = "";
-        Integer lineNum;
+        String commandToDo;
+        int lineNum;
         String fileName = "";
         String stringToAdd;
         String consoleLine;
@@ -24,7 +24,6 @@ public class Main {
             Scanner scanner = new Scanner(consoleLine);
 
             commandToDo = scanner.next().toLowerCase();
-            commandToDo.toLowerCase();
             if (commandToDo.equals("exit")) break;
             lineNum = 0;
             if (scanner.hasNextInt()) {
