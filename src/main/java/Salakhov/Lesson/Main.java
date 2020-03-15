@@ -1,8 +1,6 @@
 package Salakhov.Lesson;
 
-import ch.qos.logback.core.joran.spi.XMLUtil;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-import com.sun.xml.internal.ws.util.xml.XmlUtil;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -10,16 +8,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
-
 import javax.xml.parsers.*;
-import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
-import java.util.logging.Logger;
 
 public class Main {
 
@@ -88,9 +82,13 @@ public class Main {
         }
 
         System.out.println("=========================================");
-        System.out.println("Выводим содержимое в отдельный файл при помощи логгера... НЕ РЕАЛИЗОВАНО!!!!!");
-        // как это сделать - пока не разобрался ..... :(
-        //log.info("test");
+        System.out.println("Выводим содержимое в отдельный файл при помощи логгера...");
+        Writer out = new StringWriter();
+        XMLSerializer serializer = new XMLSerializer();
+        serializer.setOutputCharStream(out);
+        serializer.serialize(document);
+
+        log.info("\n" + out.toString());
 
         System.out.println("=========================================");
         System.out.println("Добавим новый элемент...");
@@ -108,9 +106,7 @@ public class Main {
         System.out.println("=========================================");
         System.out.println("Сохраним новый документ в файл src/main/resources/example_out.xml ...");
 
-        //Writer out = new StringWriter();
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/example_out.xml"));
-        XMLSerializer serializer = new XMLSerializer();
         //serializer.setOutputCharStream(out);
         serializer.setOutputCharStream(bufferedWriter);
         serializer.serialize(document);
@@ -139,7 +135,7 @@ public class Main {
         //library.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         //library.setAttribute("xsi:noNamespaceSchemaLocation", "src/main/resources/book.xsd");
 
-        Writer out = new StringWriter();
+        out = new StringWriter();
         serializer.setOutputCharStream(out);
         serializer.serialize(document);
         System.out.println(out.toString());
@@ -164,6 +160,8 @@ public class Main {
         System.out.println("=========================================");
         System.out.println("А теперь добавим еще одно отчество и сделаем проверку валидации...");
         addStringElement(document, author, "secondName", "Иванович222");
+        out = new StringWriter();
+        serializer.setOutputCharStream(out);
         serializer.serialize(document);
         System.out.println(out.toString());
         try {
