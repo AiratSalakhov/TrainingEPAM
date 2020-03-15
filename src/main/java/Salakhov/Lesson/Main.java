@@ -9,6 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Main {
 
@@ -56,6 +57,8 @@ public class Main {
         }
     }
 
+
+
     public static void main(String[] args) throws SAXException, ParserConfigurationException, IOException {
 
         System.out.println("Читаем XML файл с помощью SAX парсера...");
@@ -75,7 +78,6 @@ public class Main {
         }
         System.out.println("=========================================");
         System.out.println("Выводим содержимое в отдельный файл при помощи логгера...");
-
 
 
     }
