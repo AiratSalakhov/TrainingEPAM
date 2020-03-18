@@ -9,6 +9,7 @@ public class CustomClassLoader extends ClassLoader {
     protected Class<?> findClass(String className) throws ClassNotFoundException {
         try {
         byte b[] = fetchClassFromFS("C:/Java/myClasses/" + className + ".class");
+        //System.out.println("считали файл...");
         return defineClass(className, b, 0, b.length);
         } catch (FileNotFoundException ex) {
             return super.findClass(className);
