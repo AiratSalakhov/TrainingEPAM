@@ -17,8 +17,12 @@ public class Main {
 
        - Текст, который выведет метод println должен совпадать с текстом из переопределенного метода toString из класса TestClass
         */
-       public static void main(String[] args) {
-
+       public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+              CustomClassLoader classLoader = new CustomClassLoader(); //ClassLoader.getSystemClassLoader());
+              System.out.println("создали classLoader...");
+              Class clazz = classLoader.loadClass("TestClass");
+              Object obj = clazz.newInstance();
+              System.out.println(obj);
        }
 
 }
