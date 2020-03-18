@@ -5,14 +5,16 @@
     <!--Файловый аппендер -->
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>logs/Lesson06-Task6.log</file>
-        <layout class="ch.qos.logback.classic.log4j.XMLLayout">
+        <!--<layout class="ch.qos.logback.classic.log4j.XMLLayout">
             <locationInfo>false</locationInfo>
             <complete>true</complete>
             <Pattern>%msg%n</Pattern>
         </layout>
-        <!--<layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
-        </layout> -->
+        -->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!-- <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern> -->
+            <Pattern>%msg%n</Pattern>
+        </layout>
     </appender>
     <!--Консольный аппендер -->
     <appender name="sout" class="ch.qos.logback.core.ConsoleAppender">

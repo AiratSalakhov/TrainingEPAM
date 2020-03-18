@@ -23,6 +23,7 @@ public class Main {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             lastElementName = qName;
+            log.info("<" + lastElementName + ">");
         }
 
         @Override
@@ -30,6 +31,7 @@ public class Main {
             String info = new String(ch, start, length);
 
             info = info.replace("\n", "").trim();
+            log.info(info);
 
             if (!info.isEmpty()) {
                 if (lastElementName.equals("COMMON"))
@@ -58,7 +60,10 @@ public class Main {
                         ", price=" + price + ", availabitity=" + availabitity);
                 common = botanical = zone = light = price = availabitity = null;
             }
+            log.info("</" + qName + ">");
+
         }
+
     }
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
@@ -66,6 +71,7 @@ public class Main {
     public static void main(String[] args) throws SAXException, ParserConfigurationException, IOException {
 
         System.out.println("Читаем XML файл с помощью SAX парсера...");
+        System.out.println("И выводим заодно содержимое в отдельный файл при помощи логгера...");
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
         AdvancedXMLHandler advancedXMLHandler = new AdvancedXMLHandler();
@@ -81,14 +87,15 @@ public class Main {
             System.out.println(node.getTextContent().replace("\n", "").replace("        ", " ").trim());
         }
 
-        System.out.println("=========================================");
-        System.out.println("Выводим содержимое в отдельный файл при помощи логгера...");
+        // первый вариант был через XMLSerializer, потом переделал на вывод через sax парсер
+        //System.out.println("=========================================");
+        //System.out.println("Выводим содержимое в отдельный файл при помощи логгера...");
         Writer out = new StringWriter();
         XMLSerializer serializer = new XMLSerializer();
-        serializer.setOutputCharStream(out);
-        serializer.serialize(document);
+        //serializer.setOutputCharStream(out);
+        //serializer.serialize(document);
 
-        log.info("\n" + out.toString());
+        //log.info("\n" + out.toString());
 
         System.out.println("=========================================");
         System.out.println("Добавим новый элемент...");
@@ -179,5 +186,5 @@ public class Main {
         Element element = document.createElement(name);
         element.setTextContent(text + "\n");
         where.appendChild(element);
-
+    }
 }
