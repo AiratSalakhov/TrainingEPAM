@@ -4,13 +4,11 @@ import java.io.*;
 
 public class CustomClassLoader extends ClassLoader {
 
-    //public CustomClassLoader(ClassLoader parentClassLoader) {super(parentClassLoader);}
     @Override
     protected Class<?> findClass(String className) throws ClassNotFoundException {
         try {
-        byte b[] = fetchClassFromFS("C:/Java/myClasses/" + className + ".class");
-        //System.out.println("считали файл...");
-        return defineClass(className, b, 0, b.length);
+            byte bytes[] = fetchClassFromFS("C:/Java/myClasses/" + className + ".class");
+            return defineClass(className, bytes, 0, bytes.length);
         } catch (FileNotFoundException ex) {
             return super.findClass(className);
         } catch (IOException ex) {
@@ -19,7 +17,7 @@ public class CustomClassLoader extends ClassLoader {
     }
 
     private byte[] fetchClassFromFS(String path) throws FileNotFoundException, IOException {
-        InputStream is = new FileInputStream(new File(path));
+        InputStream inputStream = new FileInputStream(new File(path));
 
         long length = new File(path).length();
         byte[] bytes = new byte[(int)length];
@@ -27,14 +25,14 @@ public class CustomClassLoader extends ClassLoader {
         int offset = 0;
         int numRead = 0;
         while (offset < bytes.length
-                && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+                && (numRead=inputStream.read(bytes, offset, bytes.length-offset)) >= 0) {
             offset += numRead;
         }
 
         if (offset < bytes.length) {
             throw new IOException("Ошибка чтения файла "+path);
         }
-        is.close();
+        inputStream.close();
         return bytes;
     }
 }
