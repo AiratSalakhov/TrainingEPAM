@@ -1,4 +1,4 @@
-package main.java.Salakhov.Lesson;
+package Salakhov.Lesson;
 
 public class Address {
     private String city;
@@ -12,21 +12,26 @@ public class Address {
         this.house = house;
         this.room = room;
     }
+
     public String getCity() {
         return this.city;
     }
+
     public String getStreet() {
         return this.street;
     }
+
     public String getHouse() {
         return this.house;
     }
+
     public String getRoom() {
         return this.room;
     }
+
     @Override
-    public String toString(){
-        return "Address ("+this.city+", "+this.street+", "+this.house+", "+this.room+")";
+    public String toString() {
+        return "Address (" + this.city + ", " + this.street + ", " + this.house + ", " + this.room + ")";
     }
 
 }

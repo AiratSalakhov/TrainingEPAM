@@ -1,4 +1,4 @@
-package main.java.Salakhov.Lesson.Comparators;
+package Salakhov.Lesson.Comparators;
 
 import java.util.Comparator;
 
