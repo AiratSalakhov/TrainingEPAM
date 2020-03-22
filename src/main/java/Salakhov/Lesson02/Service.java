@@ -1,46 +1,38 @@
-package main.java.Salakhov.Lesson02;
+package Salakhov.Lesson02;
 
 import org.slf4j.LoggerFactory;
 
-public class Service implements InterfaceBD<HumanDTO> {
+public class Service implements InterfaceBd<HumanDto> {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Service.class.getName());
-
     Converter converter = new Converter();
-    DataBase humanDB = new DataBase();
+    DataBase humanDb = new DataBase();
 
-    //получение одной сущности
-    public HumanDTO getOne(int num){
-        // возвращаем в формате DTO
-        HumanDTO hdto = converter.convertToDTO(humanDB.getOne(num));
-        System.out.println("из сервиса получаем DTO номер " + num + " " + hdto);
-        log.info("из сервиса получаем DTO номер " + num + " " + hdto + " ===> log (CON)");
-        return hdto;
+    public HumanDto getOne(int num) {
+        HumanDto humanDto = converter.convertToDto(humanDb.getOne(num));
+        System.out.println("из сервиса получаем DTO номер " + num + " " + humanDto);
+        log.info("из сервиса получаем DTO номер " + num + " " + humanDto + " ===> log (CON)");
+        return humanDto;
     }
 
-    //получение всех сущностей
-    public HumanDTO[] getAll(){
-        HumanDTO[] dtoHumanDB = new HumanDTO[10];
-        for (int i=0; i<10; i++) {
-            dtoHumanDB[i] = converter.convertToDTO(humanDB.getOne(i));
+    public HumanDto[] getAll() {
+        HumanDto[] humanDtos = new HumanDto[10];
+        for (int i = 0; i < 10; i++) {
+            humanDtos[i] = converter.convertToDto(humanDb.getOne(i));
         }
-        System.out.println("из сервиса получаем массив DTO " + dtoHumanDB);
-        return dtoHumanDB;
+        System.out.println("из сервиса получаем массив DTO " + humanDtos);
+        return humanDtos;
     }
 
-    //сохранение одной сущности
-    public void setOne(HumanDTO t, int num){
-//        System.out.println("convertor.convertToHuman(t), num ");
-//        System.out.println(" " + convertor.convertToHuman(t) + ", " + num);
-        System.out.println("через сервис сохраняем DTO номер " + num + " " + t);
-        log.info("через сервис сохраняем DTO номер " + num + " " + t + " ===> log (CON)");
-        humanDB.setOne(converter.convertToHuman(t), num);
+    public void setOne(HumanDto humanDto, int num) {
+        System.out.println("через сервис сохраняем DTO номер " + num + " " + humanDto);
+        log.info("через сервис сохраняем DTO номер " + num + " " + humanDto + " ===> log (CON)");
+        humanDb.setOne(converter.convertToHuman(humanDto), num);
     }
 
-    //сохранение списка сущностей
-    public void setAll(HumanDTO[] t){
-        for (int i=0; i<10; i++) {
-            humanDB.setOne(converter.convertToHuman(t[i]), i);
+    public void setAll(HumanDto[] humanDtos) {
+        for (int i = 0; i < 10; i++) {
+            humanDb.setOne(converter.convertToHuman(humanDtos[i]), i);
         }
-        System.out.println("через сервис сохраняем массив DTO " + t);
+        System.out.println("через сервис сохраняем массив DTO " + humanDtos);
     }
 }
