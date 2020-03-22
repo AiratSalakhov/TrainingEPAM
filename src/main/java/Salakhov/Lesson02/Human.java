@@ -1,4 +1,4 @@
-package main.java.Salakhov.Lesson02;
+package Salakhov.Lesson02;
 
 import java.util.Date;
 
@@ -18,7 +18,9 @@ public class Human {
             this.street = street;
             this.house = house;
         }
-        public Address() {}
+
+        public Address() {
+        }
     }
 
     public Human(int id, String name, String city, String street, String house, Date birthDate) {
@@ -28,51 +30,65 @@ public class Human {
         this.birthDate = birthDate;
     }
 
-    public Human() {address = new Address();}
+    public Human() {
+        address = new Address();
+    }
 
-    public int getid() {
+    public int getId() {
         return this.id;
     }
-    public String getname() {
+
+    public String getName() {
         return this.name;
     }
+
     public Date getBirthDate() {
         return this.birthDate;
     }
+
     public Address getAddress() {
         return this.address;
     }
-    public void setid(int id) {
+
+    public void setId(int id) {
         this.id = id;
     }
-    public void setname(String newValue) {
+
+    public void setName(String newValue) {
         this.name = new String(newValue);
     }
+
     public void setBirthDate(int year, int month, int day) {
         this.birthDate = new Date(year, month, day);
     }
+
     public void setAddress(String city, String street, String house) {
         this.address.city = new String(city);
         this.address.street = new String(street);
         this.address.house = new String(house);
     }
+
     public String getCity() {
         return this.address.city;
     }
+
     public String getStreet() {
         return this.address.street;
     }
+
     public String getHouse() {
         return this.address.house;
     }
+
     public void setCity(String newValue) {
         this.address.city = new String(newValue);
     }
+
     public void setStreet(String newValue) {
         this.address.street = new String(newValue);
     }
+
     public void setHouse(String newValue) {
         this.address.house = new String(newValue);
     }
-
 }
