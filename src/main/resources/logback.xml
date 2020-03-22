@@ -31,11 +31,11 @@
     <!-- Логгеры -->
     <!-- Корневой логгер -->
     <root level="warn">
-        <appender-ref ref="sout" />
+        <appender-ref ref="sout"/>
     </root>
     <!-- Логгер нашего класса  -->
     <logger name="Salakhov.Lesson.Main" level="info" additivity="false">
-        <appender-ref ref="file" />
+        <appender-ref ref="file"/>
     </logger>
 
 </configuration>
