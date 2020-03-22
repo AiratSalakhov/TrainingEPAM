@@ -29,8 +29,8 @@ public class CustomClassLoader extends ClassLoader {
         byte[] bytes = new byte[(int) length];
         int offset = 0;
         int numRead = 0;
-        while (offset < bytes.length
-                && (numRead = inputStream.read(bytes, offset, bytes.length - offset)) >= 0) {
+        while (offset < bytes.length &&
+                (numRead = inputStream.read(bytes, offset, bytes.length - offset)) >= 0) {
             offset += numRead;
         }
         if (offset < bytes.length) {
