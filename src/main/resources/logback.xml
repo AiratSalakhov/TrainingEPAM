@@ -44,11 +44,11 @@
     <!-- Логгеры -->
     <!-- Корневой логгер -->
     <root level="info">
-        <appender-ref ref="sout" />
+        <appender-ref ref="sout"/>
     </root>
     <!-- Логгер нашего класса  -->
-    <logger name="Salakhov.Lesson.FileReader" level="info" >
-        <appender-ref ref="FileReader-file" />
+    <logger name="Salakhov.Lesson.FileProcessor" level="info">
+        <appender-ref ref="FileReader-file"/>
     </logger>
 
 </configuration>

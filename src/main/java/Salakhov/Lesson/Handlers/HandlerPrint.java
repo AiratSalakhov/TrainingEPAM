@@ -1,10 +1,9 @@
 package Salakhov.Lesson.Handlers;
 
-import Salakhov.Lesson.FileReader;
+import Salakhov.Lesson.FileProcessor;
 
 public class HandlerPrint implements Salakhov.Lesson.Handlers.Handlers {
-
-    FileReader fileReader = new FileReader();
+    FileProcessor fileProcessor = new FileProcessor();
 
     @Override
     public boolean execute(Integer lineNum, String fileName, String stringToAdd) {
@@ -16,21 +15,26 @@ public class HandlerPrint implements Salakhov.Lesson.Handlers.Handlers {
             System.out.println("Лишний параметр - добавляемая строка!");
             return false;
         }
-
-        fileReader.clearBuffer();
-        if (!fileReader.openReader(fileName)) {return false;}
-        if (!fileReader.read()) {return false;}
-        if (!fileReader.closeReader()) {return false;}
+        fileProcessor.clearBuffer();
+        if (!fileProcessor.openReader(fileName)) {
+            return false;
+        }
+        if (!fileProcessor.read()) {
+            return false;
+        }
+        if (!fileProcessor.closeReader()) {
+            return false;
+        }
         if (lineNum == 0) {
-            for (String line : fileReader.getBuffer()) {
+            for (String line : fileProcessor.getLinkedList()) {
                 System.out.println(line);
             }
-        } else if (lineNum > fileReader.getBuffer().size()) {
-            System.out.println("В файле нет строки с номером " + lineNum + ", всего строк: " + fileReader.getBuffer().size());
+        } else if (lineNum > fileProcessor.getLinkedList().size()) {
+            System.out.println("В файле нет строки с номером " + lineNum + ", всего строк: " + fileProcessor.getLinkedList().size());
         } else {
-            System.out.println(fileReader.getBuffer().get(lineNum-1));
+            System.out.println(fileProcessor.getLinkedList().get(lineNum - 1));
         }
-        fileReader.clearBuffer();
+        fileProcessor.clearBuffer();
         return true;
     }
 }
