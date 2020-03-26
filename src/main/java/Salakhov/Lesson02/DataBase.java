@@ -1,36 +1,30 @@
-package main.java.Salakhov.Lesson02;
+package Salakhov.Lesson02;
 
 import org.slf4j.LoggerFactory;
 
-public class DataBase implements InterfaceBD<Human> {
+public class DataBase implements InterfaceBd<Human> {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(DataBase.class.getName());
+    private Human[] humans = new Human[10];
 
-    // делаем без проверок на заполненность массива
-    private Human[] database = new Human[10];
-
-    //получение одной сущности
-    public Human getOne(int num){
-        System.out.println("получаем сущность номер " + num + " " + database[num]);
-        log.info("получаем сущность номер " + num + " " + database[num] + " ===> log (FILE)");
-        return database[num];
+    public Human getOne(int num) {
+        System.out.println("получаем сущность номер " + num + " " + humans[num]);
+        log.info("получаем сущность номер " + num + " " + humans[num] + " ===> log (FILE)");
+        return humans[num];
     }
 
-    //получение всех сущностей
-    public Human[] getAll(){
+    public Human[] getAll() {
         System.out.println("получаем все сущности в массиве");
-        return database;
+        return humans;
     }
 
-    //сохранение одной сущности
-    public void setOne(Human t, int num){
-        database[num] = t;
-        System.out.println("сохраняем сущность номер " + num + " " + t);
-        log.info("сохраняем сущность номер " + num + " " + t + " ===> log (FILE)");
+    public void setOne(Human human, int num) {
+        humans[num] = human;
+        System.out.println("сохраняем сущность номер " + num + " " + human);
+        log.info("сохраняем сущность номер " + num + " " + human + " ===> log (FILE)");
     }
 
-    //сохранение списка сущностей
-    public void setAll(Human[] t){
+    public void setAll(Human[] humans) {
         System.out.println("сохраняем все сущности в массиве");
-        database = t;
+        this.humans = humans;
     }
 }

@@ -1,8 +1,8 @@
-package main.java.Salakhov.Lesson02;
+package Salakhov.Lesson02;
 
 import java.util.Date;
 
-public class HumanDTO {
+public class HumanDto {
     private int id;
     private String name;
     private Address address;
@@ -19,66 +19,82 @@ public class HumanDTO {
             this.house = house;
         }
 
-        public Address() {}
+        public Address() {
+        }
     }
 
-    public HumanDTO(int id, String name, String city, String street, String house, Date birthDate) {
+    public HumanDto(int id, String name, String city, String street, String house, Date birthDate) {
         this.id = id;
         this.name = name;
         address = new Address(city, street, house);
         this.birthDate = birthDate;
     }
 
-    public HumanDTO() {address = new Address();}
+    public HumanDto() {
+        address = new Address();
+    }
 
-    public int getid() {
+    public int getId() {
         return this.id;
     }
-    public String getname() {
+
+    public String getName() {
         return this.name;
     }
+
     public Date getBirthDate() {
         return this.birthDate;
     }
+
     public Address getAddress() {
         return this.address;
     }
-    public void setid(int id) {
+
+    public void setId(int id) {
         this.id = id;
     }
-    public void setname(String newValue) {
-        this.name = newValue;
+
+    public void setName(String name) {
+        this.name = name;
     }
+
     public void setBirthDate(int year, int month, int day) {
         this.birthDate = new Date(year, month, day);
     }
+
     public void setAddress(String city, String street, String house) {
         this.address.city = city;
         this.address.street = street;
         this.address.house = house;
     }
+
     public String getCity() {
         return this.address.city;
     }
+
     public String getStreet() {
         return this.address.street;
     }
+
     public String getHouse() {
         return this.address.house;
     }
-    public void setCity(String newValue) {
-        this.address.city = newValue;
+
+    public void setCity(String city) {
+        this.address.city = city;
     }
-    public void setStreet(String newValue) {
-        this.address.street = newValue;
+
+    public void setStreet(String street) {
+        this.address.street = street;
     }
-    public void setHouse(String newValue) {
-        this.address.house = newValue;
+
+    public void setHouse(String house) {
+        this.address.house = house;
     }
 
     @Override
     public String toString() {
-        return  "id=" + this.id +
+        return "id=" + this.id +
                 ", name=" + this.name +
                 ", city=" + this.getCity() +
                 ", street=" + this.getStreet() +
