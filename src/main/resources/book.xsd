@@ -2,26 +2,26 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema">
     <element name="Library">
         <complexType>
-        <sequence>
-        <element name="Book">
-            <complexType>
-                <sequence>
-                    <element name="Author" minOccurs="1" maxOccurs="1">
-                        <complexType>
-                            <sequence>
-                                <element name="firstName" type="string" minOccurs="1" maxOccurs="1"/>
-                                <element name="lastName" type="string" minOccurs="1" maxOccurs="1"/>
-                                <element name="secondName" type="string" minOccurs="1" maxOccurs="1"/>
-                            </sequence>
-                        </complexType>
-                    </element>
-                </sequence>
-                <attribute name="pages" type="positiveInteger" use="required"/>
-                <attribute name="title" type="string" use="required"/>
-                <attribute name="publisher" type="string" use="required"/>
-            </complexType>
-        </element>
-        </sequence>
+            <sequence>
+                <element name="Book">
+                    <complexType>
+                        <sequence>
+                            <element name="Author" minOccurs="1" maxOccurs="1">
+                                <complexType>
+                                    <sequence>
+                                        <element name="firstName" type="string" minOccurs="1" maxOccurs="1"/>
+                                        <element name="lastName" type="string" minOccurs="1" maxOccurs="1"/>
+                                        <element name="secondName" type="string" minOccurs="1" maxOccurs="1"/>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                        </sequence>
+                        <attribute name="pages" type="positiveInteger" use="required"/>
+                        <attribute name="title" type="string" use="required"/>
+                        <attribute name="publisher" type="string" use="required"/>
+                    </complexType>
+                </element>
+            </sequence>
         </complexType>
     </element>
 </schema>
