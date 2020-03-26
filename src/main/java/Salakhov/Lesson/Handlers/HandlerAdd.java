@@ -1,10 +1,9 @@
 package Salakhov.Lesson.Handlers;
 
-import Salakhov.Lesson.FileReader;
+import Salakhov.Lesson.FileProcessor;
 
 public class HandlerAdd implements Salakhov.Lesson.Handlers.Handlers {
-
-    FileReader fileReader = new FileReader();
+    FileProcessor fileProcessor = new FileProcessor();
 
     @Override
     public boolean execute(Integer lineNum, String fileName, String stringToAdd) {
@@ -16,32 +15,33 @@ public class HandlerAdd implements Salakhov.Lesson.Handlers.Handlers {
             System.out.println("Неправильный формат добавляемой строки");
             return false;
         }
-
-        stringToAdd = stringToAdd.substring(1, stringToAdd.length()-1);
-
-        fileReader.clearBuffer();
-        // если файла нет для чтения, то потом его создадим, т.е. ошибки нет
-        if (fileReader.openReaderSilent(fileName)) {
-            if (!fileReader.read()) {
+        stringToAdd = stringToAdd.substring(1, stringToAdd.length() - 1);
+        fileProcessor.clearBuffer();
+        if (fileProcessor.openReaderSilent(fileName)) {
+            if (!fileProcessor.read()) {
                 return false;
             }
-            if (!fileReader.closeReader()) {return false;}
-        }
-
-        if (lineNum == 0 || (lineNum - fileReader.getBuffer().size()) == 1) {
-            // добавим строку в конец
-            fileReader.getBuffer().add(stringToAdd);
-        } else if (lineNum > fileReader.getBuffer().size()) {
-            int emptyLinesToAdd = lineNum - fileReader.getBuffer().size();
-            for (int i=1; i < emptyLinesToAdd; i++) {
-                fileReader.getBuffer().add("");
+            if (!fileProcessor.closeReader()) {
+                return false;
             }
-            fileReader.getBuffer().add(stringToAdd);
-        } else {
-            fileReader.getBuffer().add(lineNum-1, stringToAdd);
         }
-        if (!fileReader.openWriter(fileName)) {return false;}
-        if (!fileReader.write()) {return false;}
-        return fileReader.closeWriter();
+        if (lineNum == 0 || (lineNum - fileProcessor.getLinkedList().size()) == 1) {
+            fileProcessor.getLinkedList().add(stringToAdd);
+        } else if (lineNum > fileProcessor.getLinkedList().size()) {
+            int emptyLinesToAdd = lineNum - fileProcessor.getLinkedList().size();
+            for (int i = 1; i < emptyLinesToAdd; i++) {
+                fileProcessor.getLinkedList().add("");
+            }
+            fileProcessor.getLinkedList().add(stringToAdd);
+        } else {
+            fileProcessor.getLinkedList().add(lineNum - 1, stringToAdd);
+        }
+        if (!fileProcessor.openWriter(fileName)) {
+            return false;
+        }
+        if (!fileProcessor.write()) {
+            return false;
+        }
+        return fileProcessor.closeWriter();
     }
 }

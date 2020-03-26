@@ -1,10 +1,9 @@
 package Salakhov.Lesson.Handlers;
 
-import Salakhov.Lesson.FileReader;
+import Salakhov.Lesson.FileProcessor;
 
 public class HandlerDelete implements Salakhov.Lesson.Handlers.Handlers {
-
-    FileReader fileReader = new FileReader();
+    FileProcessor fileProcessor = new FileProcessor();
 
     @Override
     public boolean execute(Integer lineNum, String fileName, String stringToAdd) {
@@ -17,23 +16,31 @@ public class HandlerDelete implements Salakhov.Lesson.Handlers.Handlers {
             return false;
         }
 
-        fileReader.clearBuffer();
-        if (!fileReader.openReader(fileName)) {return false;}
-        if (!fileReader.read()) {return false;}
-        if (!fileReader.closeReader()) {return false;}
-        if (lineNum == 0 && fileReader.getBuffer().size() > 0) {
-            // удалим последнюю строку
-            fileReader.getBuffer().remove(fileReader.getBuffer().size()-1);
-        } else if (lineNum > fileReader.getBuffer().size()) {
-            System.out.println("В файле нет строки с номером " + lineNum + ", всего строк: " + fileReader.getBuffer().size());
-            fileReader.clearBuffer();
+        fileProcessor.clearBuffer();
+        if (!fileProcessor.openReader(fileName)) {
+            return false;
+        }
+        if (!fileProcessor.read()) {
+            return false;
+        }
+        if (!fileProcessor.closeReader()) {
+            return false;
+        }
+        if (lineNum == 0 && fileProcessor.getLinkedList().size() > 0) {
+            fileProcessor.getLinkedList().remove(fileProcessor.getLinkedList().size() - 1);
+        } else if (lineNum > fileProcessor.getLinkedList().size()) {
+            System.out.println("В файле нет строки с номером " + lineNum + ", всего строк: " + fileProcessor.getLinkedList().size());
+            fileProcessor.clearBuffer();
             return true;
         } else {
-            fileReader.getBuffer().remove(lineNum-1);
+            fileProcessor.getLinkedList().remove(lineNum - 1);
         }
-        if (!fileReader.openWriter(fileName)) {return false;}
-        if (!fileReader.write()) {return false;}
-        return fileReader.closeWriter();
+        if (!fileProcessor.openWriter(fileName)) {
+            return false;
+        }
+        if (!fileProcessor.write()) {
+            return false;
+        }
+        return fileProcessor.closeWriter();
     }
-
 }

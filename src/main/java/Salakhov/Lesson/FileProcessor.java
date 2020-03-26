@@ -2,27 +2,28 @@ package Salakhov.Lesson;
 
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 
-public class FileReader {
+public class FileProcessor {
 
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(FileReader.class.getName());
-
-    private BufferedReader reader;
-    private BufferedWriter writer;
-    private LinkedList<String> buffer = new LinkedList<>();
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(FileProcessor.class.getName());
+    private BufferedReader bufferedReader;
+    private BufferedWriter bufferedWriter;
+    private LinkedList<String> linkedList = new LinkedList<>();
 
     public boolean openReader(String fileName) {
         try {
-            reader = new BufferedReader(new java.io.FileReader(fileName)) ;
+            bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
         } catch (IOException e) {
             System.out.println("Ошибка открытия файла для чтения!");
             System.out.println(e.getMessage());
             log.info(e.getMessage());
-            if (reader != null) {
+            if (bufferedReader != null) {
                 try {
-                    reader.close();
+                    bufferedReader.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
                     log.info(e1.getMessage());
@@ -35,12 +36,12 @@ public class FileReader {
 
     public boolean openReaderSilent(String fileName) {
         try {
-            reader = new BufferedReader(new java.io.FileReader(fileName)) ;
+            bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
         } catch (IOException e) {
             log.info(e.getMessage());
-            if (reader != null) {
+            if (bufferedReader != null) {
                 try {
-                    reader.close();
+                    bufferedReader.close();
                 } catch (IOException e1) {
                     log.info(e1.getMessage());
                 }
@@ -52,14 +53,14 @@ public class FileReader {
 
     public boolean openWriter(String fileName) {
         try {
-            writer = new BufferedWriter(new java.io.FileWriter(fileName)) ;
+            bufferedWriter = new BufferedWriter(new java.io.FileWriter(fileName));
         } catch (IOException e) {
             System.out.println("Ошибка открытия файла для записи!");
             System.out.println(e.getMessage());
             log.info(e.getMessage());
-            if (writer != null) {
+            if (bufferedWriter != null) {
                 try {
-                    writer.close();
+                    bufferedWriter.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
                     log.info(e1.getMessage());
@@ -72,7 +73,7 @@ public class FileReader {
 
     public boolean closeReader() {
         try {
-            reader.close();
+            bufferedReader.close();
         } catch (IOException e) {
             System.out.println("Ошибка закрытия файла после чтения!");
             System.out.println(e.getMessage());
@@ -83,9 +84,9 @@ public class FileReader {
     }
 
     public boolean closeWriter() {
-        buffer.clear();
+        linkedList.clear();
         try {
-            writer.close();
+            bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("Ошибка закрытия файла после записи!");
             System.out.println(e.getMessage());
@@ -97,19 +98,19 @@ public class FileReader {
 
     public boolean read() {
         String line;
-        buffer.clear();
+        linkedList.clear();
         try {
-            while ((line = reader.readLine()) != null) {
-                buffer.add(line);
+            while ((line = bufferedReader.readLine()) != null) {
+                linkedList.add(line);
             }
-            reader.close();
+            bufferedReader.close();
         } catch (IOException e) {
             System.out.println("Ошибка чтения файла!");
             System.out.println(e.getMessage());
             log.info(e.getMessage());
-            if (reader != null) {
+            if (bufferedReader != null) {
                 try {
-                    reader.close();
+                    bufferedReader.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
                     log.info(e1.getMessage());
@@ -122,18 +123,18 @@ public class FileReader {
 
     public boolean write() {
         try {
-            for (String line : buffer) {
-                writer.write(line);
-                writer.newLine();
+            for (String line : linkedList) {
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
             }
-            writer.close();
+            bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("Ошибка записи файла!");
             System.out.println(e.getMessage());
             log.info(e.getMessage());
-            if (writer != null) {
+            if (bufferedWriter != null) {
                 try {
-                    writer.close();
+                    bufferedWriter.close();
                 } catch (IOException e1) {
                     System.out.println(e1.getMessage());
                     log.info(e1.getMessage());
@@ -141,13 +142,15 @@ public class FileReader {
             }
             return false;
         }
-        buffer.clear();
+        linkedList.clear();
         return true;
     }
 
-    public LinkedList<String> getBuffer() {
-        return buffer;
+    public LinkedList<String> getLinkedList() {
+        return linkedList;
     }
 
-    public void clearBuffer() {buffer.clear();}
+    public void clearBuffer() {
+        linkedList.clear();
+    }
 }
