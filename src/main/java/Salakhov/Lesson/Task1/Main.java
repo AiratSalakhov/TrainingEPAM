@@ -2,12 +2,8 @@ package Salakhov.Lesson.Task1;
 
 public class Main {
     public static void main(String[] args) {
-
-        // Task 1 Написать код, который будет выбрасывать java.lang.OutOfMemoryError, при ограничении heap 20мб (-Xmx20m)
-
         String s1 = new String();
         String s2 = new String();
-
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 1000; j++) {
                 s1 = s1 + "0123456789";
