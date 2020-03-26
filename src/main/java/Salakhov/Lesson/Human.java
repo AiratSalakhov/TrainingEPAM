@@ -1,4 +1,4 @@
-package main.java.Salakhov.Lesson;
+package Salakhov.Lesson;
 
 public class Human {
     private String fio;
@@ -14,9 +14,11 @@ public class Human {
     public String getFio() {
         return this.fio;
     }
+
     public int getAge() {
         return this.age;
     }
+
     public Address getAddress() {
         return this.address;
     }
@@ -24,17 +26,21 @@ public class Human {
     public String getCity() {
         return this.address.getCity();
     }
+
     public String getStreet() {
         return this.address.getStreet();
     }
+
     public String getHouse() {
         return this.address.getHouse();
     }
+
     public String getRoom() {
         return this.address.getRoom();
     }
+
     @Override
-    public String toString(){
-        return "Class Human ("+this.fio+", "+this.age+", "+this.address+")";
+    public String toString() {
+        return "Class Human (" + this.fio + ", " + this.age + ", " + this.address + ")";
     }
 }

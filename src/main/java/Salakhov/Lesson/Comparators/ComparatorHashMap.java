@@ -1,4 +1,4 @@
-package main.java.Salakhov.Lesson.Comparators;
+package Salakhov.Lesson.Comparators;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,5 +11,4 @@ public class ComparatorHashMap {
             return o1.getValue().toString().compareTo(o2.getValue().toString());
         }
     };
-
 }
