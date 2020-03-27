@@ -1,7 +1,7 @@
 package salakhov.lesson.abstractFactory;
 
-public class JeepOffRoad implements Car {
-    public void getInfo(){
+public class AbsJeepOffRoad implements AbsJeep {
+    public void getInfo() {
         System.out.println("This is offroad Jeep!");
     }
 }

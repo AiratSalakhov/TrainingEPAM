@@ -1,5 +1,5 @@
 package salakhov.lesson.abstractFactory;
 
-public interface Car {
+public interface AbsLada {
     void getInfo();
 }

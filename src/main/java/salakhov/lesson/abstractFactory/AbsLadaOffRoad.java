@@ -1,6 +1,6 @@
 package salakhov.lesson.abstractFactory;
 
-public class LadaOffRoad implements Car {
+public class AbsLadaOffRoad implements AbsLada {
     public void getInfo() {
         System.out.println("This is offroad Lada!");
     }
