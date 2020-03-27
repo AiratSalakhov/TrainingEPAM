@@ -4,8 +4,7 @@ import salakhov.lesson.abstractFactory.AbsFactoryCar;
 import salakhov.lesson.abstractFactory.AbsFactoryCarImpl;
 import salakhov.lesson.abstractFactory.AbsFactoryCarOffRoad;
 import salakhov.lesson.abstractFactory.AbsLada;
-import salakhov.lesson.factory.Car;
-import salakhov.lesson.factory.FactoryCar;
+import salakhov.lesson.factory.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,5 +23,13 @@ public class Main {
         }
         AbsLada lada = absFactoryCar.getLada();
         lada.getInfo();
+
+        AdapterJeep adapterJeep = new AdapterJeep(new Lada());
+        System.out.println(adapterJeep.getLadaPrice());
+
+        CompositeCars compositeCars = new CompositeCars();
+        compositeCars.add(new Lada());
+        compositeCars.add(new Jeep());
+        System.out.println(compositeCars.startEngine());
     }
 }
