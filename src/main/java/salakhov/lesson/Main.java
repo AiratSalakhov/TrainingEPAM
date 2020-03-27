@@ -31,5 +31,8 @@ public class Main {
         compositeCars.add(new Lada());
         compositeCars.add(new Jeep());
         System.out.println(compositeCars.startEngine());
+
+        TmplMetodCarImpl tmplMetodCar = new TmplMetodCarImpl();
+        tmplMetodCar
     }
 }
