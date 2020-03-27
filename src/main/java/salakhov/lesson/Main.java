@@ -33,6 +33,6 @@ public class Main {
         System.out.println(compositeCars.startEngine());
 
         TmplMetodCarImpl tmplMetodCar = new TmplMetodCarImpl();
-        tmplMetodCar
+        tmplMetodCar.checkEngine();
     }
 }
