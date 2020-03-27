@@ -12,4 +12,9 @@ public class Lada implements Car {
     public String startEngine() {
         return "Lada engine started!";
     }
+
+    public void repairCar() {
+        MediatorCar.repairCar(this);
+    }
+
 }

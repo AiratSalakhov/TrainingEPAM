@@ -12,4 +12,8 @@ public class Jeep implements Car {
     public String startEngine() {
         return "Jeep engine started!";
     }
+
+    public void repairCar() {
+        MediatorCar.repairCar(this);
+    }
 }

@@ -34,5 +34,8 @@ public class Main {
 
         TmplMetodCarImpl tmplMetodCar = new TmplMetodCarImpl();
         tmplMetodCar.checkEngine();
+
+        Lada lada2 = new Lada();
+        lada2.repairCar();
     }
 }
