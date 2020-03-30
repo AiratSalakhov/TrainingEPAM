@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Value {
-    String name() default "Vasya";
+    String name() default "Vasya default, age 20";
     int age() default 20;
 }

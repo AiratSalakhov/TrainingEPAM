@@ -20,6 +20,7 @@ public class CheckEntityAnnotation {
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(Value.class)) {
                         hasValueAnnotation = true;
+                        break;
                     }
                 }
             }
@@ -27,25 +28,25 @@ public class CheckEntityAnnotation {
                 throw new NoValueAnnotationException("It's ok, but no Value annotation for " + clazz);
             }
             return true;
-        } else {
-            System.out.println("no entity annotation for " + clazz);
-            for (Method method : methods) {
-                if (method.isAnnotationPresent(Value.class)) {
+        }
+        System.out.println("no entity annotation for " + clazz);
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(Value.class)) {
+                hasValueAnnotation = true;
+                break;
+            }
+        }
+        if (!hasValueAnnotation) {
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(Value.class)) {
                     hasValueAnnotation = true;
                     break;
                 }
             }
-            if (!hasValueAnnotation) {
-                for (Field field : fields) {
-                    if (field.isAnnotationPresent(Value.class)) {
-                        hasValueAnnotation = true;
-                    }
-                }
-            }
-            if (hasValueAnnotation) {
-                throw new IllegalStateException("It's ok, but declared Value annotation for " + clazz);
-            }
-            return false;
         }
+        if (hasValueAnnotation) {
+            throw new IllegalStateException("It's ok, but declared Value annotation for " + clazz);
+        }
+        return false;
     }
 }

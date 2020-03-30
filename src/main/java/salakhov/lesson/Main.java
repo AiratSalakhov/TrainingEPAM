@@ -17,5 +17,7 @@ public class Main {
         } catch (IllegalStateException e) {
             System.out.println(e.getMessage());
         }
+        Human human = new Human();
+        System.out.println(human);
     }
 }

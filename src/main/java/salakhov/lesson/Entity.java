@@ -7,7 +7,4 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Entity {
-    String name();
-    int version() default 1;
-}
+public @interface Entity {}

@@ -8,10 +8,6 @@ public class Animal {
 
     private String nickName;
 
-    public Animal() {
-        // вот здесь заполним по аннотациям
-    }
-
     public Animal(boolean vegetarian, int age, String nickName) {
         this.vegetarian = vegetarian;
         this.age = age;
