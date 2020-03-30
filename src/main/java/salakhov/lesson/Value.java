@@ -9,5 +9,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Value {
     String name() default "Vasya default, age 20";
+
     int age() default 20;
+
+    String path() default "";
 }
