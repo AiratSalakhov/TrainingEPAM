@@ -60,9 +60,19 @@ public class ProcessEntityAnnotation {
     }
 
     public void searchEntityAnnotatedClasses() {
-        Class[] clazz = Object.class.getDeclaredClasses();
-        for (Object classObject : clazz) {
-            System.out.println(classObject);
+        //Class[] clazz = Class.class.getDeclaredClasses();
+        //for (Class classObject : clazz) {
+         //   System.out.println(classObject);
+        //}
+
+        infoForClass(Class.class);
+    }
+
+    private void infoForClass(Class clazz) {
+        Class[] clazzLocal = clazz.getDeclaredClasses();
+        for (Class cl: clazzLocal) {
+            System.out.println("Class - "+cl.toString());
+            infoForClass(cl);
         }
     }
 
