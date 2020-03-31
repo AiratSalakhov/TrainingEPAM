@@ -1,2 +1,2 @@
 name=Name from file
-age=100
+age=99

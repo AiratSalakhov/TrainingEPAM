@@ -1,5 +1,8 @@
 package salakhov.lesson;
 
+import com.sun.beans.finder.ClassFinder;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Field;
@@ -12,13 +15,15 @@ public class ProcessEntityAnnotation {
     private static final int DEFAULT_AGE = 36;
     private static final String DEFAULT_NAME = "Default Name";
     private Human humanInstance;
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
+
 
     public boolean checkIfPresent(Class clazz) throws NoValueAnnotationException, IllegalStateException {
         Method[] methods = clazz.getDeclaredMethods();
         Field[] fields = clazz.getDeclaredFields();
         boolean hasValueAnnotation = false;
         if (clazz.isAnnotationPresent(Entity.class)) {
-            System.out.println("entity annotation present for " + clazz);
+            log.info("entity annotation present for " + clazz);
             for (Method method : methods) {
                 if (method.isAnnotationPresent(Value.class)) {
                     hasValueAnnotation = true;
@@ -38,7 +43,7 @@ public class ProcessEntityAnnotation {
             }
             return true;
         }
-        System.out.println("no entity annotation for " + clazz);
+        log.info("no entity annotation for " + clazz);
         for (Method method : methods) {
             if (method.isAnnotationPresent(Value.class)) {
                 hasValueAnnotation = true;
@@ -62,16 +67,25 @@ public class ProcessEntityAnnotation {
     public void searchEntityAnnotatedClasses() {
         //Class[] clazz = Class.class.getDeclaredClasses();
         //for (Class classObject : clazz) {
-         //   System.out.println(classObject);
+         //   log.info(classObject);
         //}
 
-        infoForClass(Class.class);
+
+
+        //infoForClass(Class.class);
+        //infoForClass(Object.class);
+        try {
+            infoForClass(ClassFinder.findClass("java.lang.Object"));
+        } catch (ClassNotFoundException e) {
+            log.info("class not found" + e);
+        }
     }
 
     private void infoForClass(Class clazz) {
+        log.info("=> "+clazz);
         Class[] clazzLocal = clazz.getDeclaredClasses();
         for (Class cl: clazzLocal) {
-            System.out.println("Class - "+cl.toString());
+            log.info("Class - "+cl.toString());
             infoForClass(cl);
         }
     }
@@ -93,7 +107,11 @@ public class ProcessEntityAnnotation {
                     if (params[0].equalsIgnoreCase("name")) {
                         name = params[1].trim();
                     } else if (params[0].equalsIgnoreCase("age")) {
-                        age = Integer.parseInt(params[1]);
+                        try {
+                            age = Integer.parseInt(params[1]);
+                        } catch (NumberFormatException e) {
+                            log.info("Invalid age in file - "+e.getMessage());
+                        }
                     } else {
                         continue;
                     }
@@ -104,14 +122,14 @@ public class ProcessEntityAnnotation {
                             humanInstance.setName(name);
                             humanList.add(humanInstance);
                         } catch (InstantiationException | IllegalAccessException e) {
-                            System.out.println(e);
+                            log.info(e.getMessage());
                         }
                         name = "";
                         age = 0;
                     }
                 }
             } catch (FileNotFoundException e) {
-                System.out.println(e);
+                log.info(e.getMessage());
             }
         }
         return humanList;
@@ -122,7 +140,7 @@ public class ProcessEntityAnnotation {
             Field[] fields = human.getClass().getDeclaredFields();
             for (Field field : fields) {
                 if (field.isAnnotationPresent(Value.class)) {
-                    System.out.println("annotation value present for field " + field.getName());
+                    log.info("annotation value present for field " + field.getName());
                     Value annotation = field.getAnnotation(Value.class);
                     String annotationName = annotation.name();
                     int annotationAge = annotation.age();
@@ -139,13 +157,17 @@ public class ProcessEntityAnnotation {
                                 if (params[0].equalsIgnoreCase("name")) {
                                     annotationName = params[1].trim();
                                 } else if (params[0].equalsIgnoreCase("age")) {
-                                    annotationAge = Integer.parseInt(params[1]);
+                                    try {
+                                        annotationAge = Integer.parseInt(params[1]);
+                                    } catch (NumberFormatException e) {
+                                        log.info("Invalid age in file - "+e.getMessage());
+                                    }
                                 } else {
                                     continue;
                                 }
                             }
                         } catch (FileNotFoundException e) {
-                            System.out.println(e);
+                            log.info(e.getMessage());
                         }
                     }
                     if (field.getName().equalsIgnoreCase("name")) {
@@ -157,7 +179,7 @@ public class ProcessEntityAnnotation {
                                 field.set(human, annotationName);
                             }
                         } catch (IllegalAccessException e) {
-                            System.out.println("setting field name - " + e);
+                            log.info("setting field name - " + e);
                         }
                     } else if (field.getName().equalsIgnoreCase("age")) {
                         try {
@@ -168,7 +190,7 @@ public class ProcessEntityAnnotation {
                                 field.set(human, DEFAULT_AGE);
                             }
                         } catch (IllegalAccessException e) {
-                            System.out.println("setting field age - " + e);
+                            log.info("setting field age - " + e);
                         }
                     }
                 }
