@@ -1,13 +1,14 @@
 package salakhov.lesson;
 
-import com.sun.beans.finder.ClassFinder;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class ProcessEntityAnnotation {
     private static final String DEFAULT_NAME = "Default Name";
     private Human humanInstance;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
+    private static Collection<File> names = new ArrayList<>();
 
 
     public boolean checkIfPresent(Class clazz) throws NoValueAnnotationException, IllegalStateException {
@@ -64,35 +66,49 @@ public class ProcessEntityAnnotation {
         return false;
     }
 
-    public void searchEntityAnnotatedClasses() {
-        //Class[] clazz = Class.class.getDeclaredClasses();
-        //for (Class classObject : clazz) {
-         //   log.info(classObject);
-        //}
-
-
-
-        //infoForClass(Class.class);
-        //infoForClass(Object.class);
-        try {
-            infoForClass(ClassFinder.findClass("java.lang.Object"));
-        } catch (ClassNotFoundException e) {
-            log.info("class not found" + e);
+    public static void processFilesFromFolder(File folder) {
+        File[] folderEntries = folder.listFiles();
+        for (File entry : folderEntries) {
+            if (entry.isDirectory()) {
+                processFilesFromFolder(entry);
+                continue;
+            }
+            names.add(entry);
         }
     }
 
-    private void infoForClass(Class clazz) {
-        log.info("=> "+clazz);
-        Class[] clazzLocal = clazz.getDeclaredClasses();
-        for (Class cl: clazzLocal) {
-            log.info("Class - "+cl.toString());
-            infoForClass(cl);
+    public void searchEntityAnnotatedClasses() {
+        String folderPath = ProcessEntityAnnotation.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        folderPath = folderPath.substring(1);
+        processFilesFromFolder(new File(folderPath));
+
+        for (File file : names) {
+            String name = file.getPath();
+            if (!name.endsWith(".class")) {
+                continue;
+            }
+            name = name.substring(0, name.length() - ".class".length());
+            name = name.replace("/", ".");
+            name = name.replace("\\", ".");
+            int classesPos = name.indexOf(".classes.");
+            if (classesPos >= 0) {
+                name = name.substring(classesPos + ".classes.".length());
+            }
+            try {
+                if (Class.forName(name).isAnnotationPresent(Entity.class)) {
+                    log.info("Annotation Entity present for class "+name);
+                } else {
+                    log.info("No annotation Entity present for class "+name);
+                }
+            } catch (ClassNotFoundException nfe) {
+                System.out.println("class not found exception - " + nfe);
+            }
         }
     }
 
     public List<Human> generateHumans(String path) {
         String name = "";
-        int age=0;
+        int age = 0;
         List<Human> humanList = new ArrayList<>();
         Class<Human> human = Human.class;
         if (!path.trim().isEmpty()) {
@@ -110,7 +126,7 @@ public class ProcessEntityAnnotation {
                         try {
                             age = Integer.parseInt(params[1]);
                         } catch (NumberFormatException e) {
-                            log.info("Invalid age in file - "+e.getMessage());
+                            log.info("Invalid age in file - " + e.getMessage());
                         }
                     } else {
                         continue;
@@ -160,7 +176,7 @@ public class ProcessEntityAnnotation {
                                     try {
                                         annotationAge = Integer.parseInt(params[1]);
                                     } catch (NumberFormatException e) {
-                                        log.info("Invalid age in file - "+e.getMessage());
+                                        log.info("Invalid age in file - " + e.getMessage());
                                     }
                                 } else {
                                     continue;
