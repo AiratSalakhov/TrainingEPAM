@@ -4,7 +4,6 @@ import java.util.Objects;
 
 @Entity
 public class Human {
-
     @Value(path = "src/main/resources/annotation.txt")
     private int age;
     @Value(path = "src/main/resources/annotation.txt")

@@ -15,12 +15,21 @@ import java.util.Scanner;
 public class ProcessEntityAnnotation {
     private static final int DEFAULT_AGE = 36;
     private static final String DEFAULT_NAME = "Default Name";
-    private Human humanInstance;
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
     private static Collection<File> names = new ArrayList<>();
 
+    public static void processFilesFromFolder(File folder) {
+        File[] folderEntries = folder.listFiles();
+        for (File entry : folderEntries) {
+            if (entry.isDirectory()) {
+                processFilesFromFolder(entry);
+                continue;
+            }
+            names.add(entry);
+        }
+    }
 
-    public boolean checkIfPresent(Class clazz) throws NoValueAnnotationException, IllegalStateException {
+    public void checkIfPresent(Class clazz) throws NoValueAnnotationException, IllegalStateException {
         Method[] methods = clazz.getDeclaredMethods();
         Field[] fields = clazz.getDeclaredFields();
         boolean hasValueAnnotation = false;
@@ -43,7 +52,7 @@ public class ProcessEntityAnnotation {
             if (!hasValueAnnotation) {
                 throw new NoValueAnnotationException("It's ok, but no Value annotation for " + clazz);
             }
-            return true;
+            return;
         }
         log.info("no entity annotation for " + clazz);
         for (Method method : methods) {
@@ -62,18 +71,6 @@ public class ProcessEntityAnnotation {
         }
         if (hasValueAnnotation) {
             throw new IllegalStateException("It's ok, but declared Value annotation for " + clazz);
-        }
-        return false;
-    }
-
-    public static void processFilesFromFolder(File folder) {
-        File[] folderEntries = folder.listFiles();
-        for (File entry : folderEntries) {
-            if (entry.isDirectory()) {
-                processFilesFromFolder(entry);
-                continue;
-            }
-            names.add(entry);
         }
     }
 
@@ -96,9 +93,9 @@ public class ProcessEntityAnnotation {
             }
             try {
                 if (Class.forName(name).isAnnotationPresent(Entity.class)) {
-                    log.info("Annotation Entity present for class "+name);
+                    log.info("Annotation Entity present for class " + name);
                 } else {
-                    log.info("No annotation Entity present for class "+name);
+                    log.info("No annotation Entity present for class " + name);
                 }
             } catch (ClassNotFoundException nfe) {
                 System.out.println("class not found exception - " + nfe);
@@ -178,8 +175,6 @@ public class ProcessEntityAnnotation {
                                     } catch (NumberFormatException e) {
                                         log.info("Invalid age in file - " + e.getMessage());
                                     }
-                                } else {
-                                    continue;
                                 }
                             }
                         } catch (FileNotFoundException e) {

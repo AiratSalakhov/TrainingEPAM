@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Animal {
     private boolean vegetarian;
     private int age;
-
     private String nickName;
 
     public Animal(boolean vegetarian, int age, String nickName) {
