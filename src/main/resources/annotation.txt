@@ -1,0 +1,2 @@
+name=Name from file
+age=99
