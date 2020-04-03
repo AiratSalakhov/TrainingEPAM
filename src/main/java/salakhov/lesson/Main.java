@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -60,5 +62,7 @@ public class Main {
         } catch (IOException e) {
             log.error("Read error! " + e);
         }
+        System.out.println(LocalDate.now());
+        System.out.println(ZoneId.getAvailableZoneIds().toString());
     }
 }
