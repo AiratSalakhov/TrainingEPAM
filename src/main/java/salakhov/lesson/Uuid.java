@@ -2,8 +2,6 @@ package salakhov.lesson;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
 
-import java.util.Arrays;
-
 public class Uuid {
     private byte[] uuid = new byte[16];
 
@@ -23,7 +21,7 @@ public class Uuid {
 
     @Override
     public String toString() {
-        StringBuilder s= new StringBuilder(HexBin.encode(this.uuid));
+        StringBuilder s = new StringBuilder(HexBin.encode(this.uuid));
         s.insert(20, "-");
         s.insert(16, "-");
         s.insert(12, "-");
