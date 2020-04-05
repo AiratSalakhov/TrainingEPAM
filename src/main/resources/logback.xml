@@ -30,7 +30,7 @@
     </turboFilter>
     <!-- Логгеры -->
     <!-- Корневой логгер -->
-    <root level="warn">
+    <root level="info">
         <appender-ref ref="sout"/>
     </root>
     <!-- Логгер нашего класса  -->
