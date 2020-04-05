@@ -32,8 +32,9 @@ public class Main {
         } catch (IOException e) {
             log.error("Write error! {}", e.getMessage());
         }
+        int count=0;
         try {
-            int count = (int) Files.lines(Paths.get("logs/output.txt"))
+            count = (int) Files.lines(Paths.get("logs/output.txt"))
                     .map((s) -> s.replaceAll("[-ABCDEFabcdef]", ""))
                     .map((s) -> {
                         int sum = 0;
@@ -52,8 +53,7 @@ public class Main {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         zonedDateTime = zonedDateTime.withZoneSameInstant(zoneId);
-        String stringDateTime = formatter.format(zonedDateTime);
-        String n = "00".concat(stringDateTime.split("-")[0]);
+        String n = "0000".concat(String.valueOf(count));
         n = n.substring(n.length() - 4);
         String m = n.substring(2);
         n = n.substring(0, 2);
