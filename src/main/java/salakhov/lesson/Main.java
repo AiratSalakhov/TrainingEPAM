@@ -3,11 +3,22 @@ package salakhov.lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-    public static volatile Integer value = 0;
-    private static Logger log = LoggerFactory.getLogger(Main.class.getName());
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
-    public static void main(String[] args) {
+public class Main {
+    private static final int WRITERS_NUMBER = 20;
+    private static final int READERS_NUMBER = 10;
+    private static final int UPDATERS_NUMBER = 10;
+    public static volatile Integer value = 0;
+    public static volatile int runningThreads;
+    private static Chat chat = new Chat();
+    private static Logger log = LoggerFactory.getLogger(Main.class.getName());
+    private static ReentrantLock lock = new ReentrantLock();
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         log.info("=========================");
         log.info("race condition...");
         Task task0 = new Task();
@@ -73,11 +84,30 @@ public class Main {
             log.info("Interrupted main thread! {}", e);
         }
         log.info("Amount of accounts: acc1={}, acc2={}", accountFrom, accountTo);
-        /*
-        FutureTask<String> futureTask = new FutureTask<>(() -> { return "callable"; });
-ExecutorService executor = Executors.newFixedThreadPool(2);
-executor.execute(futureTask);
-String str = futureTask.get();
-         */
+
+        log.info("=========================");
+        log.info("CHAT...");
+        ExecutorService executor = Executors.newFixedThreadPool(WRITERS_NUMBER + READERS_NUMBER + UPDATERS_NUMBER);
+        for (int i = 0; i < WRITERS_NUMBER; i++) {
+            executor.execute(new ChatWriter(chat, lock));
+        }
+        for (int i = 0; i < READERS_NUMBER; i++) {
+            executor.execute(new ChatReader(chat, lock));
+        }
+        for (int i = 0; i < UPDATERS_NUMBER; i++) {
+            executor.execute(new ChatUpdater(chat, lock));
+        }
+        while (true) {
+            Thread.sleep(10000);
+            lock.lock();
+            int running = runningThreads;
+            lock.unlock();
+            log.info("MAIN - running threads {}", running);
+            if (running == 0) {
+                break;
+            }
+        }
+        executor.shutdown();
+        log.info("CHAT completed.");
     }
 }

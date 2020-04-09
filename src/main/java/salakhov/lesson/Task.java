@@ -20,7 +20,7 @@ public class Task extends Thread {
             }
             newValue = ++Main.value;
             if (oldValue + 1 != newValue) {
-                log.info("Race condition {} + 1 = {} in ()", oldValue, newValue, this.getName());
+                log.info("Race condition {} + 1 = {} in {}", oldValue, newValue, this.getName());
             }
         }
         System.out.println(this.getName() + " stopped!");

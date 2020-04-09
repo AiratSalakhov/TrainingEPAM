@@ -12,17 +12,18 @@ public class TaskSynchronized extends Thread {
         int newValue;
         System.out.println(this.getName() + " started!");
         for (int i = 0; i < 100; i++) {
+            try {
+                sleep((int) (Math.random() * 10));
+            } catch (InterruptedException e) {
+                log.info("Interrupted {} ", this.getName());
+            }
             synchronized (Main.value) {
                 oldValue = Main.value;
-                try {
-                    sleep((int) (Math.random() * 10));
-                } catch (InterruptedException e) {
-                    log.info("Interrupted {} ", this.getName());
-                }
                 newValue = ++Main.value;
-            }
-            if (oldValue + 1 != newValue) {
-                log.info("Race condition {} + 1 = {}", oldValue, newValue);
+
+                if (oldValue + 1 != newValue) {
+                    log.info("!!! Race condition {} + 1 = {} in {}", oldValue, newValue, this.getName());
+                }
             }
         }
         System.out.println(this.getName() + " stopped!");
