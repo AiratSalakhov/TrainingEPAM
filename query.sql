@@ -17,7 +17,7 @@ where price between 10 and 20;
 
 --Поиск orders у которых orderdate между 2004-01-05 и 2004-02-05
 select * from orders o 
-where orderdate between '2004-01-05' and '2004-02-05';
+where orderdate between date '2004-01-05' and date '2004-02-05';
 
 --Сгруппировать данные в orders по полю customerid и посчитать количество относительно каждого customerid
 select customerid, count(*) from orders o
