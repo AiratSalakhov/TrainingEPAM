@@ -12,10 +12,10 @@ public class Main {
     private static Connection connection;
 
     public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
+        //Class.forName("org.postgresql.Driver");
         try {
 
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost/ASM",
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost/postgres",
                     "postgres", "GiveMe1000backs");
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from products;");
