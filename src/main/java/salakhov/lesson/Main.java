@@ -3,22 +3,16 @@ package salakhov.lesson;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 @Slf4j
 public class Main {
-    private static final String DB_PASSWORD = "SET_YOUR_PASSWORD_HERE!!!!!";
-    private static ResultSet resultSet;
-    private static PreparedStatement preparedStatement;
-    private static Connection connection;
-
     public static void main(String[] args) {
         try {
             String inputLine;
             Scanner scanner = new Scanner(System.in);
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost/postgres",
-                    "postgres", DB_PASSWORD);
+            DbProcessor.connect();
             forExit:
             while (true) {
                 System.out.println("Таблица products (prod_id, category, title, actor, price, special, common_prod_id)");
@@ -40,16 +34,7 @@ public class Main {
                             break;
                         }
                         String newTitle = scanner1.nextLine().trim();
-                        preparedStatement = connection.prepareStatement("INSERT INTO products (" +
-                                "category, title, actor, price, special, common_prod_id) VALUES " +
-                                "(?,?,?,?,?,?);");
-                        preparedStatement.setInt(1, 10);
-                        preparedStatement.setString(2, newTitle);
-                        preparedStatement.setString(3, "NEW ACTOR");
-                        preparedStatement.setFloat(4, 55.55f);
-                        preparedStatement.setShort(5, (short) 1);
-                        preparedStatement.setInt(6, 212);
-                        preparedStatement.executeUpdate();
+                        DbProcessor.insert(newTitle);
                         break;
                     }
                     case (2): {
@@ -59,31 +44,18 @@ public class Main {
                         }
                         int productId = scanner1.nextInt();
                         String newTitle = scanner1.nextLine().trim();
-                        preparedStatement = connection.prepareStatement("SELECT * FROM products WHERE prod_id = ?;");
-                        preparedStatement.setInt(1, productId);
-                        resultSet = preparedStatement.executeQuery();
-                        if (!resultSet.next()) {
+                        if (!DbProcessor.isProdIdExists(productId)) {
                             System.out.println("Не найден prod_id!");
                             break;
                         }
-                        preparedStatement = connection.prepareStatement("UPDATE products SET title = ?" +
-                                " WHERE prod_id = ?;");
-                        preparedStatement.setString(1, newTitle);
-                        preparedStatement.setInt(2, productId);
-                        preparedStatement.executeUpdate();
+                        DbProcessor.update(newTitle, productId);
                         break;
                     }
                     case (3): {
                         String searchString = scanner1.hasNext() ? ("WHERE title LIKE '%" +
                                 scanner1.nextLine().trim() + "%'") : "";
-                        preparedStatement = connection.prepareStatement("SELECT * FROM products " +
-                                searchString + ";");
-                        resultSet = preparedStatement.executeQuery();
-                        while (resultSet.next()) {
-                            for (int i = 1; i < 8; i++) {
-                                System.out.print(resultSet.getString(i).concat(" | "));
-                            }
-                            System.out.println();
+                        for (String str : DbProcessor.search(searchString)) {
+                            System.out.println(str);
                         }
                         break;
                     }
@@ -93,16 +65,11 @@ public class Main {
                             break;
                         }
                         int productId = scanner1.nextInt();
-                        preparedStatement = connection.prepareStatement("SELECT * FROM products WHERE prod_id = ?;");
-                        preparedStatement.setInt(1, productId);
-                        resultSet = preparedStatement.executeQuery();
-                        if (!resultSet.next()) {
+                        if (!DbProcessor.isProdIdExists(productId)) {
                             System.out.println("Не найден prod_id!");
                             break;
                         }
-                        preparedStatement = connection.prepareStatement("DELETE FROM products WHERE prod_id = ?;");
-                        preparedStatement.setInt(1, productId);
-                        preparedStatement.executeUpdate();
+                        DbProcessor.delete(productId);
                         break;
                     }
                     case (5): {
@@ -114,17 +81,9 @@ public class Main {
             log.info("SQL Exception {}", e.getMessage());
         } finally {
             try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
+                DbProcessor.disconnect();
             } catch (SQLException e) {
-                log.info("SQL Exception {}", e.getMessage());
+                log.info("SQL Exception on disconnect {}", e.getMessage());
             }
         }
         log.info("Приложение завершено!");
