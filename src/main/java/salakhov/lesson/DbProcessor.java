@@ -2,6 +2,7 @@ package salakhov.lesson;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbProcessor {
     private static final String DB_PASSWORD = "SET_YOUR_PASSWORD_HERE!!!!!";
@@ -43,8 +44,8 @@ public class DbProcessor {
         preparedStatement.executeUpdate();
     }
 
-    public static ArrayList<String> search(String searchString) throws SQLException {
-        ArrayList<String> stringArrayList = new ArrayList<>();
+    public static List<String> search(String searchString) throws SQLException {
+        List<String> stringList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM products " +
                 searchString + ";");
         resultSet = preparedStatement.executeQuery();
@@ -53,9 +54,9 @@ public class DbProcessor {
             for (int i = 1; i < 8; i++) {
                 string = string.concat(resultSet.getString(i).concat(" | "));
             }
-            stringArrayList.add(string);
+            stringList.add(string);
         }
-        return stringArrayList;
+        return stringList;
     }
     public static void delete(int productId) throws SQLException {
         preparedStatement = connection.prepareStatement("DELETE FROM products WHERE prod_id = ?;");
